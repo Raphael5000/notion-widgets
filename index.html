@@ -1,27 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Active Tickets Widget</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎫 Active Tickets</title>
   <style>
     body {
       margin: 0;
-      padding: 2rem;
-      font-family: Arial, sans-serif;
-      background-color: #ffffff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      padding: 0;
       height: 100vh;
+      background-color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .count {
-      font-size: 4rem;
-      font-weight: bold;
+
+    main {
+      text-align: center;
+    }
+
+    .count-label {
+      font-size: 1.5rem;
+      color: #888888;
+      margin-bottom: 0.5rem;
+    }
+
+    .count-number {
+      font-size: 5rem;
+      font-weight: 700;
       color: #2f80ed;
     }
   </style>
 </head>
 <body>
-  <div class="count" id="count">🎫 Active Tickets: <span id="number">42</span></div>
+  <main>
+    <div class="count-label">🎫 Active Tickets</div>
+    <div class="count-number" id="ticket-count">Loading...</div>
+  </main>
+
+  <script>
+    async function loadTicketCount() {
+      try {
+        const res = await fetch('https://jsonblob.com/api/jsonBlob/1430096454034317312');
+        const data = await res.json();
+        document.getElementById('ticket-count').textContent = data.count;
+      } catch (error) {
+        console.error('Failed to fetch ticket count:', error);
+        document.getElementById('ticket-count').textContent = '–';
+      }
+    }
+
+    loadTicketCount();
+  </script>
 </body>
 </html>
